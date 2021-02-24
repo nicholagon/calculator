@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Roboto&display=swap');
+/****************
+   Elements    
+*****************/
+body, html {
+    /* background-color: rgb(95, 214, 175); */
+    background-color: rgb(95, 214, 175);
+    text-align: center;
+    font-family: 'Roboto', serif;
+    height: 100%;
+    display: grid;
+}
+footer {
+    font-size: small;
+    text-align: center;
+    padding: 20px 20px;
+    position: relative;
+}
+
+/****************
+   Classes    
+*****************/
+.wrapper {
+    margin: auto;
+    width: 100%;
+}
+
+.calc-body {
+    background-color: rgb(4, 42, 68);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 25px 25px;
+    width: 20%;
+    margin:auto;
+}
+
+.calc-display {
+    display: grid;
+    font-family: 'DotGothic16', serif;
+    font-size: 1.5em;
+    background-color: rgb(125, 180, 70);
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.5rem 0.5rem;
+    margin: 1rem;
+    text-align: left;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: 
+        "num-btn op-btn"
+        "erase-btn erase-btn";
+    padding: 1rem;
+}
+
+.btn {
+    border: 1px solid white;
+    color: rgb(216, 198, 147);
+    border-radius: 10px;
+    margin: 3px;
+    padding: 1rem 1rem;    
+}
+
+.number-btn-grp {
+    grid-area: num-btn;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.operator-btn-grp {
+    grid-area: op-btn;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.erase-btn-grp {
+    grid-area: erase-btn;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.num-btn {
+    display: inline-block;
+}
+
+/****************
+   IDs    
+*****************/
