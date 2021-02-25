@@ -10,13 +10,30 @@ body, html {
     height: 100%;
     display: grid;
 }
+h1 {
+    font-family: 'DotGothic16', serif;
+    text-transform: lowercase;
+    letter-spacing: 0.3rem;
+}
 footer {
+    font-family: 'DotGothic16', serif;
     font-size: small;
     text-align: center;
+    letter-spacing: 0.1rem;
     padding: 20px 20px;
     position: relative;
 }
 
+a {
+    color: black;
+    transition: 0.3s;
+}
+
+
+a:hover{
+    background-color:rgb(4, 42, 68);
+    color: white;
+}
 /****************
    Classes    
 *****************/
@@ -33,7 +50,7 @@ footer {
     border: 1px solid black;
     border-radius: 25px;
     padding: 25px 25px;
-    width: 20%;
+    width: 20rem;
     margin:auto;
 }
 
@@ -59,12 +76,17 @@ footer {
     padding: 1rem;
 }
 
-.btn {
-    border: 1px solid white;
+.btn, .btn:active {
+    border: 1px solid rgb(188, 193, 209); /* white;*/
     color: rgb(216, 198, 147);
     border-radius: 10px;
     margin: 3px;
-    padding: 1rem 1rem;    
+    padding: 1rem 1rem;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    box-shadow: 0px 0px 2px 1px white;
 }
 
 .number-btn-grp {
@@ -84,14 +106,26 @@ footer {
 .erase-btn-grp {
     grid-area: erase-btn;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 1fr;
     grid-template-rows: 1fr;
 }
 
-.num-btn {
-    display: inline-block;
+.erase-btn {
+    /* background-color: rgb(216, 198, 147);
+    color: rgb(4, 42, 68); */
+    background-color: rgb(40, 72, 168);
+    border: 1px solid rgb(188, 193, 209);
+    
 }
 
+.op-btn {
+    background-color: rgb(216, 188, 147);
+    color: rgb(4, 42, 68);
+}
 /****************
    IDs    
 *****************/
+#key-equal {
+    background-color: rgb(216, 147, 147);
+    color: rgb(4, 42, 68);
+}
