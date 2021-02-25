@@ -1,6 +1,6 @@
 function operate(inputs) {
     const [op, a, b] = inputs; 
-    const result;
+    let result;
 
     switch(op) {
         case '+':
@@ -34,3 +34,12 @@ function multiply(a, b) {
 function divide(a, b) {
     return a / b;
 }
+
+// Exporting variables and functions
+export {
+    operate,
+    add,
+    subtract,
+    multiply,
+    divide
+};
