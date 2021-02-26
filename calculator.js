@@ -1,5 +1,5 @@
 function operate(inputs) {
-    const [op, a, b] = inputs; 
+    const [a, op, b] = inputs; 
     let result;
 
     switch(op) {
@@ -16,7 +16,7 @@ function operate(inputs) {
             result = divide(a, b);
             break;
     }
-    return result
+    return result;
 }
 
 function add(a, b) {
