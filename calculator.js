@@ -1,6 +1,6 @@
 function operate(inputs) {
     const [a, op, b] = inputs; 
-    let result;
+    let result=0;
 
     switch(op) {
         case '+':

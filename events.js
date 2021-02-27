@@ -52,7 +52,8 @@ function processOperator(e) {
     }
 
     if(inputScreen.textContent !== '' &&
-        !(inputScreen.textContent.match(allOperators))) {
+        checkValidOperator(inputScreen.textContent) === -1){
+        // !(inputScreen.textContent.match(allOperators))) {
         inputScreen.textContent += input;
     }
     else if(isExpressionValid(inputScreen.textContent) &&
@@ -60,9 +61,9 @@ function processOperator(e) {
             operationHandling();
     }
     else if(!isExpressionValid(inputScreen.textContent)) {
-        const str = inputScreen.textContent;
-        const opeIndex = str.indexOf(str.match(allOperators));
-        inputScreen.textContent = str.substr(0, opeIndex) + input;
+        const exp = inputScreen.textContent;
+        const opeIndex = checkValidOperator(exp);
+        inputScreen.textContent = exp.substr(0, opeIndex) + input;
     }
 
     if(resultScreen.textContent) {
@@ -73,14 +74,15 @@ function processOperator(e) {
 
 function operationHandling(e) {
     const exp = inputScreen.textContent;
-    const index = exp.indexOf(exp.match(allOperators));
+    const index = checkValidOperator(exp);
+    // console.log('index: ' + index + " match " + checkValidOperator(exp));
     let inputs = [
         +exp.substr(0, index),
         exp.charAt(index),
         +exp.substr(index + 1),
     ];
-    console.log(inputs);
-    console.log(operate(inputs));
+    // console.log(inputs);
+    // console.log(operate(inputs));
     let result = operate(inputs);
     resultScreen.textContent = result;
 }
@@ -100,15 +102,41 @@ function clearScreens() {
     resultScreen.textContent = "";
 }
 
-function isExpressionValid(str) {
-    const opeIndex = str.indexOf(str.match(allOperators));
-    console.log(opeIndex)
-    console.log(isNaN(parseFloat(str.substr(0, opeIndex))));
-    console.log(str.charAt(opeIndex).match(allOperators));
-    console.log(isNaN(parseFloat(str.substr(opeIndex + 1))));
-    console.log(str.substr(opeIndex + 1));
+function isExpressionValid(exp) {
+    const opeIndex = checkValidOperator(exp);
+    // console.log(opeIndex)
+    // console.log(isNaN(parseFloat(exp.substr(0, opeIndex))));
+    // console.log(exp.charAt(opeIndex));
+    // console.log(isNaN(parseFloat(exp.substr(opeIndex + 1))));
+    // console.log(exp.substr(opeIndex + 1));
 
-    return (!isNaN(parseFloat(str.substr(0, opeIndex)))) &&
-        !isNaN(parseFloat(str.substr(opeIndex + 1))) &&
-        str.charAt(opeIndex).match(allOperators);
+    return (opeIndex && !isNaN(parseFloat(exp.substr(0, opeIndex)))) &&
+        !isNaN(parseFloat(exp.substr(opeIndex + 1)));
+}
+
+function checkValidOperator(exp) {
+    let op = exp.match(allOperators);
+    // console.log(op);
+    if(op === null) {
+        return -1;
+    }
+
+    if(op.length === 1) {
+        // console.log("exp " + exp + ",op " + op[0])
+        // console.log("exp.indexOf "+exp.indexOf(op[0]))
+        return exp.indexOf(op[0]);
+    }
+    else if(op.length === 2) {
+        // console.log("exp " + exp)
+        // console.log("exp.indexOf "+exp.indexOf(op[1]))
+        return exp.indexOf(op[1]);
+    }
+    else if(op.length === 3) {
+        // console.log("exp " + exp)
+        // console.log("exp.indexOf "+exp.indexOf(op[2]))
+        return exp.indexOf(op[2]);
+    }
+    else {
+        return -1;
+    }
 }
