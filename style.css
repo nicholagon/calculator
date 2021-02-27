@@ -58,7 +58,6 @@ a:hover{
 
 .calc-display {
     display: grid;
-    /* font-family: 'DotGothic16', serif; */
     font-family: 'VT323', monospace;
     font-size: 1.5em;
     background-color: rgb(125, 180, 70);
@@ -66,10 +65,11 @@ a:hover{
     border-radius: 10px;
     padding: 0.5rem 0.5rem;
     margin: 1rem;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr;
-    height: 4.5rem;
+    min-height: 4.5rem;
     letter-spacing: 0.05rem;
+    word-wrap: break-word;
 }
 
 .calc-buttons {
@@ -80,6 +80,12 @@ a:hover{
         "num-btn op-btn"
         "erase-btn erase-btn";
     padding: 1rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .btn, .btn:active {

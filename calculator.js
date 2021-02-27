@@ -16,7 +16,7 @@ function operate(inputs) {
             result = divide(a, b);
             break;
     }
-    return result;
+    return parseFloat(result.toPrecision(10));
 }
 
 function add(a, b) {
