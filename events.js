@@ -66,10 +66,14 @@ function processOperator(e) {
         inputScreen.textContent = exp.substr(0, opeIndex) + input;
     }
 
-    if(resultScreen.textContent) {
+    if(resultScreen.textContent && 
+        isDisplayableInExp(resultScreen.textContent)) {
+        resultScreen.textContent = '';
+    }
+    else if(resultScreen.textContent) {
         inputScreen.textContent = resultScreen.textContent + input;
         // resultScreen.textContent = '';
-    }    
+    }
 }
 
 function operationHandling(e) {
@@ -81,10 +85,16 @@ function operationHandling(e) {
         exp.charAt(index),
         +exp.substr(index + 1),
     ];
-    // console.log(inputs);
-    // console.log(operate(inputs));
+    console.log(inputs);
+    console.log(operate(inputs));
     let result = operate(inputs);
-    resultScreen.textContent = result;
+    if(result === Infinity) {
+        resultScreen.textContent = 'dividing by 0!';
+    }
+    else {
+        resultScreen.textContent = result;
+    }
+    
 }
 
 function selectEraseType(e) {
@@ -139,4 +149,8 @@ function checkValidOperator(exp) {
     else {
         return -1;
     }
+}
+
+function isDisplayableInExp(str) {
+    return str.includes('NaN') || str.includes('0!');
 }
