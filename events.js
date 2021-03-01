@@ -7,17 +7,19 @@ const numBtn = document.querySelectorAll('.num-btn');
 const opBtn = document.querySelectorAll('.op-btn');
 const eraseBtn = document.querySelectorAll('.erase-btn');
 const equalBtn = document.querySelector('#key-equal');
+const pointBtn = document.querySelector('#key-point');
 
+let decimalPoint = false;
 
 numBtn.forEach(btn => btn.addEventListener('click', processNumbers));
 opBtn.forEach(btn => btn.addEventListener('click', processOperator));
+pointBtn.addEventListener('click', processDecimalPoint);
 equalBtn.addEventListener('click', operationHandling);
-eraseBtn.forEach(btn => btn.addEventListener('click', selectEraseType))
-
+eraseBtn.forEach(btn => btn.addEventListener('click', selectEraseType));
 
 function processNumbers(e) {
     let input = e.target.id.substr(4);
-
+    
     if(inputScreen.textContent !== '0' || resultScreen.textContent) {
         inputScreen.textContent += input;
     }
@@ -26,12 +28,17 @@ function processNumbers(e) {
         inputScreen.textContent = '';
         inputScreen.textContent += input;
     }
+}
 
-    // if(resultScreen.textContent) {
-    //     // clearScreens();
-    //     inputScreen.textContent += input;
-    // }
+function processDecimalPoint(e) {
+    let input = e.target.id.substr(4);
 
+    if(input === 'point'  && decimalPoint === false &&
+            inputScreen.textContent !== '') {
+        input = '.';
+        inputScreen.textContent += input;
+        decimalPoint = true;
+    }
 }
 
 function processOperator(e) {
@@ -50,10 +57,9 @@ function processOperator(e) {
             input = '/';
             break;
     }
-
+    
     if(inputScreen.textContent !== '' &&
         checkValidOperator(inputScreen.textContent) === -1){
-        // !(inputScreen.textContent.match(allOperators))) {
         inputScreen.textContent += input;
     }
     else if(isExpressionValid(inputScreen.textContent) &&
@@ -72,29 +78,32 @@ function processOperator(e) {
     }
     else if(resultScreen.textContent) {
         inputScreen.textContent = resultScreen.textContent + input;
-        // resultScreen.textContent = '';
     }
+
+    decimalPoint = false;
 }
 
 function operationHandling(e) {
     const exp = inputScreen.textContent;
     const index = checkValidOperator(exp);
     // console.log('index: ' + index + " match " + checkValidOperator(exp));
-    let inputs = [
-        +exp.substr(0, index),
-        exp.charAt(index),
-        +exp.substr(index + 1),
-    ];
-    console.log(inputs);
-    console.log(operate(inputs));
-    let result = operate(inputs);
-    if(result === Infinity) {
-        resultScreen.textContent = 'dividing by 0!';
+
+    if(isExpressionValid(exp)) {        
+        let inputs = [
+            +exp.substr(0, index),
+            exp.charAt(index),
+            +exp.substr(index + 1),
+        ];
+        console.log(inputs);
+        console.log(operate(inputs));
+        let result = operate(inputs);
+        if(result === Infinity) {
+            resultScreen.textContent = 'dividing by 0!';
+        }
+        else {
+            resultScreen.textContent = result;
+        }
     }
-    else {
-        resultScreen.textContent = result;
-    }
-    
 }
 
 function selectEraseType(e) {
@@ -103,7 +112,11 @@ function selectEraseType(e) {
         clearScreens();
     }
     else if (e.target.id === 'btn-del') {
-
+        let exp = inputScreen.textContent.split("");
+        console.log(exp);
+        exp.pop();
+        console.log(exp.join(""))
+        inputScreen.textContent = exp.join("");
     }
 }
 
@@ -114,11 +127,6 @@ function clearScreens() {
 
 function isExpressionValid(exp) {
     const opeIndex = checkValidOperator(exp);
-    // console.log(opeIndex)
-    // console.log(isNaN(parseFloat(exp.substr(0, opeIndex))));
-    // console.log(exp.charAt(opeIndex));
-    // console.log(isNaN(parseFloat(exp.substr(opeIndex + 1))));
-    // console.log(exp.substr(opeIndex + 1));
 
     return (opeIndex && !isNaN(parseFloat(exp.substr(0, opeIndex)))) &&
         !isNaN(parseFloat(exp.substr(opeIndex + 1)));
@@ -126,7 +134,7 @@ function isExpressionValid(exp) {
 
 function checkValidOperator(exp) {
     let op = exp.match(allOperators);
-    // console.log(op);
+
     if(op === null) {
         return -1;
     }
