@@ -78,7 +78,7 @@ a:hover{
     grid-template-rows: 1fr auto;
     grid-template-areas: 
         "num-btn op-btn"
-        "erase-btn erase-btn";
+        "erase-btn op-btn";
     padding: 1rem;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -151,4 +151,8 @@ a:hover{
 #result-display {
     font-size: 2.3rem;
     text-align: right;
+}
+
+#note {
+    font-size: smaller;
 }
